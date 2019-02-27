@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <!-- Filtros -->
+    <!-- Un filtro, modifica los elementos antes de pasarlos por pantalla, formateos, etc -->
+
+    
+    <div id="app">
+        <!-- Al agregar un pide despues de una variable, le agregamos un filtro a esta -->
+        <!-- Un filtro debe ser una función, esta pasa como parametro la variable anterior -->
+        <h1> {{ titulo | capitalize }} </h1>
+        <h2> {{ subtitulo | lowercase }} </h2>
+
+        <!-- Podemos concatenar filtros, en este caso se utiliza lowercaso, y luego uppercase -->
+        <h2> {{ subtitulo | lowercase | uppercase }} </h2>
+        <h3> {{ valor | peso }} </h2>
+    </div>
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        // Creamos app como un nuevo elemento Vue y le pasamos como parametro:
+        // el: El elemento a obtener,
+        // data: Acá elegimos que datos utilizaremos en la aplicación
+        // filters (json):
+        let app = new Vue({
+            el: '#app',
+            data: {
+                titulo: 'Acomerapp',
+                subtitulo: 'Sumate a la nueva forma de pedir tu comida',
+                valor: 1000
+            },
+            filters: {
+                uppercase: function (str) {
+                    return str.toUpperCase()
+                },
+                lowercase: function (str) {
+                    return str.toLowerCase()
+                },
+                capitalize: function(str) {
+                    return str.charAt(0).toUpperCase() + str.slice(1);
+                },
+                peso: function(str) {
+                    return '$'+str
+                }
+            }
+      
+
+        })
+    
+    </script>
+</body>
+</html>

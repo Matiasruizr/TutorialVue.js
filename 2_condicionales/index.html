@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <div id="app">
+        <template v-if="mostrar">
+        <!-- Los templates, son wrappers que no se renderean como html para utilizar en nuestros componentes -->
+            <h1> Este es mi titulo {{ nombre }} </h1>
+            <h2> Este es m subtitulo </h2>
+            <!-- Para cambias atributos de una etiqueta utilizamos : -->
+
+            <!-- v-if="valor_a_evaluar" -->
+            <a :href="url" target="_blank">Ir a {{ pagina }}</a>
+        </template>
+        <div v-show="!mostrar">
+        <!-- v-show oculta un elemento, pero con un display:none de css -->
+            <h1>Elemento oculto </h1>
+        </div>
+    </div>
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        // Creamos app como un nuevo elemento Vue y le pasamos como parametro:
+        // el: El elemento a obtener,
+        // data: Acá elegimos que datos utilizaremos en la aplicación
+        let app = new Vue({
+            el: '#app',
+            data: {
+                nombre: 'Mundo',
+                pagina: 'jumpintodigital',
+                url: 'http://jumpintodigital.com',
+                mostrar: true
+            }
+
+        })
+    
+    </script>
+</body>
+</html>
