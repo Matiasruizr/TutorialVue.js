@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+</head>
+<body>
+ 
+    <div id="app">
+        <!-- Manejo de formularios -->
+        <!-- Lo que ingresemos en esta caja, lo pone como un modelo en la vista y lo guarda en la variable indicada -->
+        <input type="text" name="nombre" placeholder="Ingresa tu nombre" v-model="nombre">
+        <p>Tu nombre es: {{ nombre | uppercase }}</p>
+
+        <!-- Llamamos un evento ( @ ) submit y ocupamos prevent -->
+        <form @submit.prevent="submit" action="" method="get">
+            <h2>¿Que te gustaría comer hoy?</h2>
+
+            <!-- Utilizamos un foreach para el array cursos y bindeamos los valores correspondientes a las etiquetas -->
+            <!-- el v-model, representa a donde se guardara este valor  -->
+            <template v-for="curso in cursos">
+                <curso :curso="curso" @:checked="selectCurso"></curso>
+               
+            </template>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        // Para declarar un component, utilizamos el metodo component de Vue
+        Vue.component("curso", {
+            // El componente necesita estas propiedades
+            // Debemos pasar estar variables como atributos al elemento
+            props: ['curso'],
+            methods: {
+                onchange: function(e) {
+                    // Obtiene eventos
+                    this.$emit('checked', this.curso.value, e.target.checked )
+                }
+            },
+            template: `
+                <div>
+                    <input type="checkbox" :id="curso.value" :value="curso.value" @change="onchange">
+                    <label :for="curso.value">{{ curso.nombre }}</label>
+                </div>
+            `
+        })
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                nombre: '',
+                cursos: [
+                    { nombre: 'Curso de Vue.js', value: 'vue' },
+                    { nombre: 'Curso de Seo', value: 'seo' },
+                    { nombre: 'Curso de React y Redux', value: 'react' },
+                    { nombre: 'Growth marketing', value:'growth' }
+                ],
+                cursosSeleccionados: []
+            },
+            methods: {
+                submit: function () {
+                    console.log("Submit")
+                    console.log(this.cursosSeleccionados)
+                },
+                selectCurso: function(curso, check) {
+                    if (check){
+                        this.cursosSeleccionados.push(curso)
+                    } else {
+                        let i = this.cursosSeleccionados.indexOf(curso)
+                        this.cursosSeleccionados.splice(i, 1)
+                    }
+                }
+            },
+           
+        })
+    
+    </script>
+</body>
+</html>

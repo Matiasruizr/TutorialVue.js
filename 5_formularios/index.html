@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+</head>
+<body>
+ 
+    <div id="app">
+        <!-- Manejo de formularios -->
+        <!-- Lo que ingresemos en esta caja, lo pone como un modelo en la vista y lo guarda en la variable indicada -->
+        <input type="text" name="nombre" placeholder="Ingresa tu nombre" v-model="nombre">
+        <p>Tu nombre es: {{ nombre | uppercase }}</p>
+
+        <!-- Llamamos un evento ( @ ) submit y ocupamos prevent -->
+        <form @submit.prevent="submit" action="" method="get">
+            <h2>¿Que te gustaría comer hoy?</h2>
+            <input v-model="cursos" type="checkbox" id="pizza" value="pizza">
+            <label for="pizza">Pizza</label>
+
+            <input v-model="cursos" type="checkbox" id="sushi" value="sushi">
+            <label for="sushi">Sushi</label>
+
+            <input v-model="cursos" type="checkbox" id="tragos" value="tragos">
+            <label for="tragos">Tragos</label>
+
+            <input v-model="cursos" type="checkbox" id="churrascos" value="churrascos">
+            <label for="churrascos">Tragos</label>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        // Creamos app como un nuevo elemento Vue y le pasamos como parametro:
+        // el: El elemento a obtener,
+        // data: Acá elegimos que datos utilizaremos en la aplicación
+        // filters (json):
+        let app = new Vue({
+            el: '#app',
+            data: {
+                nombre: '',
+                cursos: []
+            },
+            filters: {
+                uppercase: function(str) {
+                   return str.toUpperCase()
+                }
+            },
+            methods: {
+                submit: function () {
+                    console.log("Submit")
+                    console.log(this.cursos)
+                }
+            }
+        })
+    
+    </script>
+</body>
+</html>
